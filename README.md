@@ -1,0 +1,1 @@
+This is what I use to generate my personal home page [dpb.me](http://dpb.me). Built using [blume](https://github.com/danpaul/blume), Sinatra and Haml.

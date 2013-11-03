@@ -1,0 +1,152 @@
+---
+layout: post
+title: Processing Sketch
+tags:
+- Digital
+status: draft
+type: post
+published: false
+meta:
+  lightboxoff: 'false'
+  _edit_last: '1'
+  _thumbnail_id: '560'
+---
+this is a test post for a <a href="http://www.processing.org">processing</a> sketch.  it's a little buggy and doesn't reset itself properly as an embedded application.  click to start.  click a few more times and it will restart.
+
+the pattern is based on a series of regressive orbits.  at each point of the increment a line is drawn from the child object to the parent object it is orbiting.  there are 20 orbiting objects in this sketch.
+
+thanks to "<a href="http://www.keyvan.net/">keyvan</a>" for the <a href="http://wordpress.org/extend/plugins/profile/keyvan">wordpress plugin</a>.
+
+<script type="application/processing">// <![CDATA[
+//Info: http://processingjs.org/reference
+//working object using arrays
+
+Orbit oneOrbit;
+int count = 0;
+
+void setup() {
+  oneOrbit = new Orbit(50,0);
+  size(500,500);
+  background(0);
+  stroke(255,10);
+  smooth();
+  noLoop();
+  fill(0);
+  rect(0,width,0,height);
+}
+
+void draw() {
+  oneOrbit.posset(width/2,height/3);
+  //oneOrbit.pointdraw();
+  //oneOrbit.linedraw();
+  oneOrbit.linedraw2();
+  oneOrbit.thetainc(2);
+
+}
+
+void mousePressed() {
+  if (count==0) {
+    count = count + 1;
+    loop();
+    }
+
+    else if (count==1) {
+      noLoop();
+      count = count+1;
+    }
+
+      else if (count==2){
+       setup();
+       count=0;
+      }
+
+}
+
+class Orbit {
+  int total = 20;//total number for arrays;
+  float[] radius = new float[total];
+  float[] theta = new float[total];
+  float[] xpos = new float[total];
+  float[] ypos = new float[total];
+  float[] xsave = new float[total];//saves the points from prev cycle in draw
+  float[] ysave = new float[total];
+  float raddec; //decreasing amount for radius
+  float speed; //based on increment of theta
+  //float xoffset; //center of orbital pattern
+  //float yoffset;
+
+  Orbit(float _radius, float _theta) {
+    raddec = .9;
+    speed = .01;
+    //xoffset = width/2;
+    //yoffset = height/2;
+    for (int i = 0; i < theta.length; i++) {
+      theta[i] = _theta;
+    }
+
+    for (int i = 0; i < radius.length; i++) {
+      if (i == 0) {
+        radius[i] = _radius;
+      }
+      else {
+        radius[i] = (radius[i-1])*raddec;
+      }
+    }
+  }
+
+  void linedraw() {
+    for (int i = 0; i < xpos.length; i++) {
+      if (i==0){}
+      else {
+        line(xpos[i],ypos[i],xpos[0],ypos[0]);
+      }
+    }
+  }
+
+    void linedraw2() {
+    for (int i = 0; i < xpos.length; i++) {
+      if (i==0){}
+      else {
+        line(xpos[i],ypos[i],xpos[i-1],ypos[i-1]);
+      }
+    }
+  } 
+
+  void posset(float offsetX, float offsetY) {
+    for (int i = 0; i < xpos.length; i++) {
+      if (i == 0) {
+        xpos[i] = xloc(theta[i],radius[i])+offsetX;
+        ypos[i] = yloc(theta[i],radius[i])+offsetY;
+      }
+      else {
+        xpos[i] = xloc(theta[i],radius[i])+xpos[i-1];
+        ypos[i] = yloc(theta[i],radius[i])+ypos[i-1];
+      }
+    }
+  }
+
+  void pointdraw() {
+    for (int i = 0; i < xpos.length; i++) {
+      point(xpos[i],ypos[i]);
+    }
+  }
+
+  void thetainc(float _increment) {
+    float _speed = speed;
+    for (int i = 0; i < xpos.length; i++) {
+      theta[i] = theta[i]+_speed;
+      _speed = _speed*_increment;
+    }
+  }
+
+  float xloc(float _theta, float _radius) {
+    float _x = sin(_theta)*_radius;
+    return _x;
+  }
+
+  float yloc(float _theta, float _radius) {
+    float _y = cos(_theta)*_radius;
+    return _y;
+  }
+}
+// ]]></script>
