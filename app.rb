@@ -21,31 +21,36 @@ configure do
 	$post_tags = $blume.get_tags('posts')
 end
 
+before do
+	@tags = $post_tags
+end
+
 get '/generate_site' do
 	$blume.generate_site
 end
 
 get '/' do
 	@posts = $content['posts']
-	@tags = $post_tags
 	haml :index
 end
 
 get '/tag/:tag/' do
 	@posts = $blume.get_posts_with_tag(params[:tag])
-	@tags = $post_tags
 	haml :index
 end
 
 get '/page/:page/' do
 	@post = $content['pages'].detect{|i| i['title'] == params[:page]}
-	@tags = $post_tags
 	haml :single_page
+end
+
+get '/blog/' do
+	@posts = $content['blog']
+	haml :blog
 end
 
 get '/:date_title/' do
 	@post = $content['posts'].detect{|i| i['date_title'] == params[:date_title]}
-	@tags = $post_tags
 	haml :single_page
 end
 
@@ -69,6 +74,15 @@ __END__
 			$(window).load(function(){
 				$('#content').fadeIn();
 			});
+
+@@blog
+.large-6.large-centered.columns
+	-@posts.each do |post|
+		-if post['published']
+			%h4= post['date_time'].strftime("%m/%d/%y") << ' - ' << post['title']
+			= post['body']
+			%hr
+	-# .content= @post['body']
 
 @@single_page
 .large-6.large-centered.columns
@@ -129,6 +143,9 @@ __END__
       %li.divider
       %li
         %a{:href => "https://github.com/danpaul?tab=repositories"} code
+      %li.divider
+      %li
+        %a{:href => '/blog/'} blog
       %li.divider
     / Right Nav Section
     %ul.right
