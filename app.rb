@@ -44,6 +44,11 @@ get '/page/:page/' do
 	haml :single_page
 end
 
+get '/blog/:date_title/' do
+	@post = $content['blog'].detect{|i| i['date_title'] == params[:date_title]}
+	haml :single_page
+end
+
 get '/blog/' do
 	@posts = $content['blog']
 	haml :blog
@@ -78,14 +83,17 @@ __END__
 @@blog
 .large-6.large-centered.columns
 	-@posts.each do |post|
+		-# puts post
 		-if post['published']
-			%h4= post['date_time'].strftime("%m/%d/%y") << ' - ' << post['title']
+			%a{href: "#{'/blog/' + post['date_title'] + '/'}"}
+				%h4= post['date_time'].strftime("%m/%d/%y") << ' - ' << post['title']
 			= post['body']
 			%hr
 	-# .content= @post['body']
 
 @@single_page
 .large-6.large-centered.columns
+	%h4= @post['date_time'].strftime("%m/%d/%y") << ' - ' << @post['title']
 	-if @post['slide_images']
 		-@post['slide_images'].each do |image|
 			%p
