@@ -19,11 +19,23 @@ configure do
 	$blume = Blume.new
 	$content = $blume.build_content
 	$post_tags = $blume.get_tags('posts')
+
+$num = 0;
+
 end
 
 before do
 	@tags = $post_tags
 end
+
+
+
+get '/count' do
+	$num = $num +1;
+	$num.to_s
+end
+
+
 
 get '/generate_site' do
 	$blume.generate_site
@@ -152,9 +164,9 @@ __END__
       %li
         %a{:href => "https://github.com/danpaul?tab=repositories"} code
       %li.divider
-      %li
-        %a{:href => '/blog/'} blog
-      %li.divider
+      -# %li
+        -# %a{:href => '/blog/'} blog
+      -# %li.divider
     / Right Nav Section
     %ul.right
       %li.divider
