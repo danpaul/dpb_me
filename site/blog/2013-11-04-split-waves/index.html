@@ -119,22 +119,26 @@
           $("#content").hide();
         </script>
         <div class="large-6 large-centered columns">
-          <h4>11/11/11 - perspective</h4>
-          <p>
-            <img src="https://googledrive.com/host/0B4qKq8es2-_-LXNFcDQ4b3JqalU/art/2012_01_01-photo-003.jpg">
-          </p>
-          <p>
-            <img src="https://googledrive.com/host/0B4qKq8es2-_-LXNFcDQ4b3JqalU/art/2012_01_01-photo-004.jpg">
-          </p>
-          <p>
-            <img src="https://googledrive.com/host/0B4qKq8es2-_-LXNFcDQ4b3JqalU/art/2012_01_01-photo-005.jpg">
-          </p>
-          <p>
-            <img src="https://googledrive.com/host/0B4qKq8es2-_-LXNFcDQ4b3JqalU/art/2012_01_01-photo-006.jpg">
-          </p>
+          <h4>11/04/13 - Split waves</h4>
           <div class="content">
-            <p><em>Perspective Studies, 8.5&Prime;&times;11&Prime;, 35mm B&amp;W photos, 2011</em></p>
-            <p>Although developed in 2011 these photos were taken shortly after arriving in <span class="caps">NYC</span> almost 10 years ago. &Acirc;&nbsp;They were my first experiments with 35mm. &Acirc;&nbsp;I was interested in&Acirc;&nbsp;simultaneously capturing multiple perspectives in one image. &Acirc;&nbsp;All of these images contain more than one exposure on the same negative. &Acirc;&nbsp;I tried to maintain a constant relation to a particular object while exposing the film so that there is a constant and static object that stands in relation to transient objects which surround it or inhabit it. &Acirc;&nbsp;I was mostly interested in experimentation but I found the relation of perspective to motion through space and time to reflect the sort of arbitrary and perhaps illusory way that our self perspective maintains a sense of constancy despite the fact that all other objects in the world are constantly changing and transforming.</p>
+            <p>I created a <a href="https://github.com/danpaul/sand/blob/master/sketches/006.rb">new sketch</a> with <a href="https://github.com/danpaul/sand">Sand</a>. I will summarize what I was trying to do by quoting directly from the source:</p>
+            <pre>
+            # create array of waves
+            # have all waves play the same tone
+            # split the group into two groups
+            # shift group A up
+            # shift group B down
+            
+            # recursively repeat this process until each 
+            #	tone has been differentiated
+            </pre>
+            <p>I need to write a function that does this splitting of the audio array recursively but hacking together a manual test version late at night gave me some restults. I&rsquo;m intrested in trying to create the intereference waves that occur when two wave are being played at a very close frequency. This was really apparent when the waves were just starting to split at 12 and 24 seconds.</p>
+            <p><a href="http://dpb.me/img/2013_11_04_split_wave.png"><img src="http://dpb.me/img/2013_11_04_split_wave.png" style="width:100%"></a></p>
+            <p>I also learned quickly that an increase in tone results in an apparent increase in volume. The lower tones quickly become inaudible as the lower tones get louder.</p>
+            <audio controls>
+            <source src="http://dpb.me/audio/131104_split_wave.mp3" type="audio/ogg">
+            Your browser does not support the audio tag.
+            </source></audio>
           </div>
         </div>
       </div>

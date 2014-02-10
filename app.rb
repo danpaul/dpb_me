@@ -19,23 +19,11 @@ configure do
 	$blume = Blume.new
 	$content = $blume.build_content
 	$post_tags = $blume.get_tags('posts')
-
-$num = 0;
-
 end
 
 before do
 	@tags = $post_tags
 end
-
-
-
-get '/count' do
-	$num = $num +1;
-	$num.to_s
-end
-
-
 
 get '/generate_site' do
 	$blume.generate_site
@@ -91,6 +79,9 @@ __END__
 			$(window).load(function(){
 				$('#content').fadeIn();
 			});
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+			ga('create', 'UA-17739609-1', 'dpb.me');
+			ga('send', 'pageview');
 
 @@blog
 .large-6.large-centered.columns
@@ -164,9 +155,9 @@ __END__
       %li
         %a{:href => "https://github.com/danpaul?tab=repositories"} code
       %li.divider
-      -# %li
-        -# %a{:href => '/blog/'} blog
-      -# %li.divider
+      %li
+        %a{:href => '/blog/'} blog
+      %li.divider
     / Right Nav Section
     %ul.right
       %li.divider

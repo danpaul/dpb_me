@@ -20,4 +20,7 @@ I need to write a function that does this splitting of the audio array recursive
 
 I also learned quickly that an increase in tone results in an apparent increase in volume. The lower tones quickly become inaudible as the lower tones get louder.
 
-"Split Wave":/audio/131104_split_wave.mp3
+<audio controls>
+  <source src="/audio/131104_split_wave.mp3" type="audio/ogg">
+  Your browser does not support the audio tag.
+</audio>
